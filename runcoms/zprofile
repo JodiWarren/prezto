@@ -5,6 +5,8 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
+[[ -s ~/.nvm/nvm.sh ]] && . ~/.nvm/nvm.sh
+
 #
 # Browser
 #
@@ -45,6 +47,8 @@ typeset -gU cdpath fpath mailpath path
 path=(
   /usr/local/{bin,sbin}
   $path
+  /Users/jodi/.nvm/v0.10.12/bin
+  ~/.rbenv/shims
 )
 
 #
@@ -72,3 +76,6 @@ if [[ ! -d "$TMPDIR" ]]; then
 fi
 
 TMPPREFIX="${TMPDIR%/}/zsh"
+if [[ ! -d "$TMPPREFIX" ]]; then
+  mkdir -p "$TMPPREFIX"
+fi
