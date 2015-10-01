@@ -17,11 +17,11 @@ eval "$(rbenv init -)"
 pathdirs=(
     /usr/local/Cellar/php55/5.5.20/bin
     /Applications/MAMP/bin/php/php5.5.3/bin
+    ~/.rbenv/shims
     /usr/local/bin
     ~/bin
     ~/.composer/vendor/bin
     /Applications/MAMP/Library/bin
-    
 )
 for dir in $pathdirs; do
     if [ -d $dir ]; then
