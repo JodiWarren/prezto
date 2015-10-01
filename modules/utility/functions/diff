@@ -5,10 +5,10 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
-function diff {
+diff() {
   if zstyle -t ':prezto:module:utility:diff' color; then
     if (( $+commands[colordiff] )); then
-      command diff --unified "$@" | colordiff --difftype diffu
+      command colordiff --unified "$@"
     elif (( $+commands[git] )); then
       git --no-pager diff --color=auto --no-ext-diff --no-index "$@"
     else

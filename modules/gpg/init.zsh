@@ -30,6 +30,9 @@ export GPG_TTY="$(tty)"
 
 # Integrate with the SSH module.
 if grep 'enable-ssh-support' "$_gpg_agent_conf" &> /dev/null; then
+  # Load required functions.
+  autoload -Uz add-zsh-hook
+
   # Override the ssh-agent environment file default path.
   _ssh_agent_env="$_gpg_agent_env"
 
@@ -37,7 +40,7 @@ if grep 'enable-ssh-support' "$_gpg_agent_conf" &> /dev/null; then
   pmodload 'ssh'
 
   # Updates the GPG-Agent TTY before every command since SSH does not set it.
-  function _gpg-agent-update-tty {
+  _gpg-agent-update-tty() {
     gpg-connect-agent UPDATESTARTUPTTY /bye >/dev/null
   }
   add-zsh-hook preexec _gpg-agent-update-tty

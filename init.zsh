@@ -1,4 +1,5 @@
 #
+# this is my insert for test
 # Initializes Prezto.
 #
 # Authors:
@@ -22,7 +23,7 @@ unset min_zsh_version
 #
 
 # Loads Prezto modules.
-function pmodload {
+pmodload() {
   local -a pmodules
   local pmodule
   local pfunction_glob='^([_.]*|prompt_*_setup|README*)(-.N:t)'

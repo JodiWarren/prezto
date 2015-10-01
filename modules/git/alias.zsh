@@ -55,6 +55,8 @@ alias gcr='git revert'
 alias gcR='git reset "HEAD^"'
 alias gcs='git show'
 alias gcl='git-commit-lost'
+alias gcS='git commit -S'
+alias gpS='git show --pretty=short --show-signature'
 
 # Conflict (C)
 alias gCl='git status | sed -n "s/^.*both [a-z]*ed: *//p"'
@@ -107,6 +109,7 @@ alias glo='git log --topo-order --pretty=format:"${_git_log_oneline_format}"'
 alias glg='git log --topo-order --all --graph --pretty=format:"${_git_log_oneline_format}"'
 alias glb='git log --topo-order --pretty=format:"${_git_log_brief_format}"'
 alias glc='git shortlog --summary --numbered'
+alias glS='git log --show-signature'
 
 # Merge (m)
 alias gm='git merge'
@@ -127,7 +130,7 @@ alias gpp='git pull origin "$(git-branch-current 2> /dev/null)" && git push orig
 # Rebase (r)
 alias gr='git rebase'
 alias gra='git rebase --abort'
-alias grc='git rebase --continue'
+alias grr='git rebase --continue'
 alias gri='git rebase --interactive'
 alias grs='git rebase --skip'
 
@@ -168,6 +171,10 @@ alias gSs='git submodule sync'
 alias gSu='git submodule foreach git pull origin master'
 alias gSx='git-submodule-remove'
 
+# Tag (t)
+alias gts='git tag -s'
+alias gtv='git verify-tag'
+
 # Working Copy (w)
 alias gws='git status --ignore-submodules=${_git_status_ignore_submodules} --short'
 alias gwS='git status --ignore-submodules=${_git_status_ignore_submodules}'
@@ -176,6 +183,9 @@ alias gwD='git diff --no-ext-diff --word-diff'
 alias gwr='git reset --soft'
 alias gwR='git reset --hard'
 alias gwc='git clean -n'
-alias gwC='git clean -f'
+alias gwC='git clean -df'
 alias gwx='git rm -r'
 alias gwX='git rm -rf'
+
+# Misc
+alias g..='cd $(git-root || echo ".")'

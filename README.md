@@ -5,6 +5,8 @@ Prezto is the configuration framework for [Zsh][1]; it enriches the command line
 interface environment with sane defaults, aliases, functions, auto completion,
 and prompt themes.
 
+This is a fork of the [original semi-abandoned Prezto][9] maintained by Sorin Ionescu.
+
 Installation
 ------------
 
@@ -17,7 +19,7 @@ version is 4.3.17.
 
   2. Clone the repository:
 
-        git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+        git clone --recursive https://github.com/Eriner/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
 
   3. Create a new Zsh configuration by copying the Zsh configuration files
      provided:
@@ -26,6 +28,9 @@ version is 4.3.17.
         for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do
           ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"
         done
+
+    NB: The above will not overwrite or update any existing `.zshrc`. Therefore, if you
+    have an existing `.zshrc` you must manually add the line `source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"`.
 
   4. Set Zsh as your default shell:
 
@@ -89,6 +94,8 @@ Copyright (c) 2009-2011 Robby Russell and contributors.
 
 Copyright (c) 2011-2015 Sorin Ionescu and contributors.
 
+Copyright (c) 2015 Matt Hamilton and contributors.
+
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
 the Software without restriction, including without limitation the rights to
@@ -108,10 +115,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 [1]: http://www.zsh.org
-[2]: http://i.imgur.com/AzjmpwM.png "sorin theme"
+[2]: http://i.imgur.com/nrGV6pg.png "sorin theme"
 [3]: http://git-scm.com
 [4]: https://github.com
 [5]: http://gitimmersion.com
 [6]: http://gitref.org
 [7]: http://www.bash2zsh.com/zsh_refcard/refcard.pdf
 [8]: http://grml.org/zsh/zsh-lovers.html
+[9]: https://github.com/sorin-ionescu/prezto

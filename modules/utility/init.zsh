@@ -71,9 +71,9 @@ if is-callable 'dircolors'; then
       eval "$(dircolors --sh)"
     fi
 
-    alias ls="$aliases[ls] --color=auto"
+    alias ls="${aliases[ls]:-ls} --color=auto"
   else
-    alias ls="$aliases[ls] -F"
+    alias ls="${aliases[ls]:-ls} -F"
   fi
 else
   # BSD Core Utilities
@@ -84,9 +84,9 @@ else
     # Define colors for the completion system.
     export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=36;01:cd=33;01:su=31;40;07:sg=36;40;07:tw=32;40;07:ow=33;40;07:'
 
-    alias ls='ls -G'
+    alias ls="${aliases[ls]:-ls} -G"
   else
-    alias ls='ls -F'
+    alias ls="${aliases[ls]:-ls} -F"
   fi
 fi
 
@@ -107,7 +107,7 @@ if zstyle -t ':prezto:module:utility:grep' color; then
   export GREP_COLOR='37;45'           # BSD.
   export GREP_COLORS="mt=$GREP_COLOR" # GNU.
 
-  alias grep="$aliases[grep] --color=auto"
+  alias grep="${aliases[grep]:-grep} --color=auto"
 fi
 
 # Mac OS X Everywhere
@@ -158,43 +158,43 @@ fi
 # Miscellaneous
 
 # Serves a directory via HTTP.
-alias http-serve='python -m SimpleHTTPServer'
+alias http-serve='env python2 -m SimpleHTTPServer'
 
 #
 # Functions
 #
 
 # Makes a directory and changes to it.
-function mkdcd {
+mkdcd() {
   [[ -n "$1" ]] && mkdir -p "$1" && builtin cd "$1"
 }
 
 # Changes to a directory and lists its contents.
-function cdls {
+cdls() {
   builtin cd "$argv[-1]" && ls "${(@)argv[1,-2]}"
 }
 
 # Pushes an entry onto the directory stack and lists its contents.
-function pushdls {
+pushdls() {
   builtin pushd "$argv[-1]" && ls "${(@)argv[1,-2]}"
 }
 
 # Pops an entry off the directory stack and lists its contents.
-function popdls {
+popdls() {
   builtin popd "$argv[-1]" && ls "${(@)argv[1,-2]}"
 }
 
 # Prints columns 1 2 3 ... n.
-function slit {
+slit() {
   awk "{ print ${(j:,:):-\$${^@}} }"
 }
 
 # Finds files and executes a command on them.
-function find-exec {
+find-exec() {
   find . -type f -iname "*${1:-}*" -exec "${2:-file}" '{}' \;
 }
 
 # Displays user owned processes status.
-function psu {
+psu() {
   ps -U "${1:-$LOGNAME}" -o 'pid,%cpu,%mem,command' "${(@)argv[2,-1]}"
 }
