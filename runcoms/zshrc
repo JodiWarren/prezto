@@ -15,8 +15,9 @@ fi
 export PATH="~/bin:/Users/jodi/.homebrew/bin:~/.homebrew/Library/LinkedKegs/coreutils/libexec/gnubin:$PATH"
 
 pathdirs=(
-    /usr/local/Cellar/php55/5.5.20/bin
-    /Applications/MAMP/bin/php/php5.5.3/bin
+    ~/.bin
+    /Users/jodi/.bin/flip
+    /Users/jodi/.rbenv/versions/2.2.3/bin
     ~/.rbenv/shims
     /usr/local/bin
     ~/.composer/vendor/bin
@@ -31,3 +32,6 @@ done
 eval "$(rbenv init -)"
 
 . `brew --prefix`/etc/profile.d/z.sh
+
+export NVM_DIR=~/.nvm
+source $(brew --prefix nvm)/nvm.sh
