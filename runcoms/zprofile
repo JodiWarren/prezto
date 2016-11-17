@@ -19,9 +19,9 @@ fi
 # Editors
 #
 
-export EDITOR='nano'
-export VISUAL='nano'
-export PAGER='less'
+export EDITOR='vim'
+export VISUAL='vim'
+export PAGER='most'
 
 #
 # Language
@@ -45,7 +45,7 @@ typeset -gU cdpath fpath mailpath path
 
 # Set the list of directories that Zsh searches for programs.
 path=(
-  /Applications/MAMP/bin/php/php5.6.10/bin
+  /Applications/MAMP/bin/php/php5.6.25/bin
   ~/.rbenv/shims
   /usr/local/{bin,sbin}
   $path

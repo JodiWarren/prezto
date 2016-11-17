@@ -5,6 +5,7 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
+
 # Source Prezto.
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
@@ -21,7 +22,6 @@ pathdirs=(
     ~/.rbenv/shims
     /usr/local/bin
     ~/.composer/vendor/bin
-    /Applications/MAMP/Library/bin
 )
 for dir in $pathdirs; do
     if [ -d $dir ]; then
@@ -35,3 +35,5 @@ eval "$(rbenv init -)"
 
 export NVM_DIR=~/.nvm
 source $(brew --prefix nvm)/nvm.sh
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
