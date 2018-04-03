@@ -45,7 +45,7 @@ typeset -gU cdpath fpath mailpath path
 
 # Set the list of directories that Zsh searches for programs.
 path=(
-  /Applications/MAMP/bin/php/php5.6.25/bin
+  /Applications/MAMP/bin/php/php7.1.8/bin
   ~/.rbenv/shims
   /usr/local/{bin,sbin}
   $path
