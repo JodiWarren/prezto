@@ -3,3 +3,4 @@
 modules/*/cache.zsh
 .idea
 .DS_Store
+contrib

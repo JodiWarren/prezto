@@ -4,7 +4,6 @@
 # Authors:
 #   Benjamin Boudreau <dreurmail@gmail.com>
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
-#   Matt Hamilton <m@tthamilton.com>
 #
 # Tips:
 #   https://wiki.archlinux.org/index.php/Pacman_Tips
@@ -24,17 +23,10 @@ zstyle -s ':prezto:module:pacman' frontend '_pacman_frontend'
 
 if (( $+commands[$_pacman_frontend] )); then
   alias pacman="$_pacman_frontend"
-
-  if [[ -s "${0:h}/${_pacman_frontend}.zsh" ]]; then
-    source "${0:h}/${_pacman_frontend}.zsh"
-  fi
 else
   _pacman_frontend='pacman'
   _pacman_sudo='sudo '
 fi
-
-# Set package compression and type
-_pacman_package_ext='.pkg.tar.xz'
 
 #
 # Aliases
@@ -44,13 +36,10 @@ _pacman_package_ext='.pkg.tar.xz'
 alias pac="${_pacman_frontend}"
 
 # Installs packages from repositories.
-alias paci="${_pacman_sudo}${_pacman_frontend} --sync --sysupgrade"
+alias paci="${_pacman_sudo}${_pacman_frontend} --sync"
 
 # Installs packages from files.
 alias pacI="${_pacman_sudo}${_pacman_frontend} --upgrade"
-
-# Installs all packages in local directory
-alias pacd="${_pacman_sudo}${_pacman_frontend} --upgrade *${_pacman_package_ext}"
 
 # Removes packages and unneeded dependencies.
 alias pacx="${_pacman_sudo}${_pacman_frontend} --remove"
@@ -77,15 +66,23 @@ alias pacman-list-orphans="${_pacman_sudo}${_pacman_frontend} --query --deps --u
 alias pacman-remove-orphans="${_pacman_sudo}${_pacman_frontend} --remove --recursive \$(${_pacman_frontend} --quiet --query --deps --unrequired)"
 
 # Synchronizes the local package and Arch Build System databases against the
-# repositories.
-if (( $+commands[abs] )); then
-  alias pacU="${_pacman_sudo}${_pacman_frontend} --sync --refresh && sudo abs"
+# repositories using the asp tool.
+if (( $+commands[asp] )); then
+  alias pacu="${_pacman_sudo}${_pacman_frontend} --sync --refresh && sudo asp update"
 else
-  alias pacU="${_pacman_sudo}${_pacman_frontend} --sync --refresh"
+  alias pacu="${_pacman_sudo}${_pacman_frontend} --sync --refresh"
 fi
 
 # Synchronizes the local package database against the repositories then
 # upgrades outdated packages.
-alias pacu="${_pacman_sudo}${_pacman_frontend} --sync --refresh --sysupgrade"
+alias pacU="${_pacman_sudo}${_pacman_frontend} --sync --refresh --sysupgrade"
 
-unset _pacman_{frontend,sudo,package_ext}
+function aurget {
+  local target_dir="$1"
+  if [[ -n "$2" ]]; then
+    target_dir="$2"
+  fi
+  git clone "https://aur.archlinux.org/$1" "$target_dir"
+}
+
+unset _pacman_{frontend,sudo}

@@ -8,6 +8,7 @@
 #   Isaac Wolkerstorfer <i@agnoster.net>
 #   Jeff Sandberg <paradox460@gmail.com>
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
+#   Patrick Bos <egpbos@gmail.com>
 #
 # Screenshots:
 #   http://i.imgur.com/0XIWX.png
@@ -21,7 +22,7 @@ _prompt_paradox_current_bg='NONE'
 _prompt_paradox_segment_separator=''
 _prompt_paradox_start_time=$SECONDS
 
-prompt_paradox_start_segment() {
+function prompt_paradox_start_segment {
   local bg fg
   [[ -n "$1" ]] && bg="%K{$1}" || bg="%k"
   [[ -n "$2" ]] && fg="%F{$2}" || fg="%f"
@@ -34,7 +35,7 @@ prompt_paradox_start_segment() {
   [[ -n "$3" ]] && print -n "$3"
 }
 
-prompt_paradox_end_segment() {
+function prompt_paradox_end_segment {
   if [[ -n "$_prompt_paradox_current_bg" ]]; then
     print -n " %k%F{$_prompt_paradox_current_bg}$_prompt_paradox_segment_separator"
   else
@@ -44,12 +45,16 @@ prompt_paradox_end_segment() {
   _prompt_paradox_current_bg=''
 }
 
-prompt_paradox_build_prompt() {
+function prompt_paradox_build_prompt {
   prompt_paradox_start_segment black default '%(?::%F{red}✘ )%(!:%F{yellow}⚡ :)%(1j:%F{cyan}⚙ :)%F{blue}%n%F{red}@%F{green}%m%f'
   prompt_paradox_start_segment blue black '$_prompt_paradox_pwd'
 
   if [[ -n "$git_info" ]]; then
     prompt_paradox_start_segment green black '${(e)git_info[ref]}${(e)git_info[status]}'
+  fi
+
+  if [[ -n "$python_info" ]]; then
+    prompt_paradox_start_segment white black '${(e)python_info[virtualenv]}'
   fi
 
   prompt_paradox_end_segment
@@ -74,30 +79,35 @@ prompt_paradox_print_elapsed_time() {
   fi
 }
 
-prompt_paradox_precmd() {
+function prompt_paradox_precmd {
   setopt LOCAL_OPTIONS
   unsetopt XTRACE KSH_ARRAYS
 
   # Format PWD.
-  promptpwd paradox
+  _prompt_paradox_pwd=$(prompt-pwd)
 
   # Get Git repository information.
   if (( $+functions[git-info] )); then
     git-info
   fi
 
+  # Get Python environment information.
+  if (( $+functions[python-info] )); then
+    python-info
+  fi
+
   # Calculate and print the elapsed time.
   prompt_paradox_print_elapsed_time
 }
 
-prompt_paradox_preexec() {
+function prompt_paradox_preexec {
   _prompt_paradox_start_time="$SECONDS"
 }
 
-prompt_paradox_setup() {
+function prompt_paradox_setup {
   setopt LOCAL_OPTIONS
   unsetopt XTRACE KSH_ARRAYS
-  prompt_opts=(cr percent subst)
+  prompt_opts=(cr percent sp subst)
 
   # Load required functions.
   autoload -Uz add-zsh-hook
@@ -131,6 +141,9 @@ prompt_paradox_setup() {
   zstyle ':prezto:module:git:info:keys' format \
     'ref' '$(coalesce "%b" "%p" "%c")' \
     'status' '%s%D%A%B%S%a%d%m%r%U%u'
+
+  # %v - virtualenv name.
+  zstyle ':prezto:module:python:info:virtualenv' format 'virtualenv:%v'
 
   # Define prompts.
   PROMPT='
