@@ -52,3 +52,7 @@ export PATH="$HOME/Library/Haskell/bin:$PATH"
 
 # Python
 export PATH="/Users/jodi/.homebrew/opt/python/libexec/bin:$PATH"
+export AWS_ACCESS_KEY_ID=AKIAINBQHLK5RFGSZIJA
+export AWS_SECRET_ACCESS_KEY=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
+
+source $HOME/.aliases

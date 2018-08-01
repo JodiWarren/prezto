@@ -50,6 +50,7 @@ path=(
   /usr/local/{bin,sbin}
   $path
   /Users/jodi/.nvm/v0.10.12/bin
+  /Users/jodiwarren/.composer/vendor/bin
 )
 
 #
@@ -80,3 +81,5 @@ TMPPREFIX="${TMPDIR%/}/zsh"
 if [[ ! -d "$TMPPREFIX" ]]; then
   mkdir -p "$TMPPREFIX"
 fi
+
+export PATH="$HOME/.cargo/bin:$PATH"
